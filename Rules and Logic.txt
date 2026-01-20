@@ -1,0 +1,113 @@
+Blackjack rules and logic
+
+# Blackjack Program Rules
+
+## 1. Game Overview
+
+* Game type: Blackjack (21)
+* Number of players: 1–6 human players
+* Dealer: Automated (computer-controlled)
+* Platform: Desktop application
+* Players join a single lobby/room per game session
+
+---
+
+## 2. Deck Rules
+
+* The game uses **one standard 52-card deck**
+* The deck is shuffled at the start of each game
+* Card values:
+
+  * Cards 2–10: face value
+  * Jack, Queen, King: value of 10
+  * Ace: value of 1 or 11 (automatically chosen to produce the best hand not exceeding 21)
+
+---
+
+## 3. Initial Deal
+
+* Each player is dealt **two cards face up**
+* The dealer is dealt:
+
+  * One card face up
+  * One card face down (hidden)
+
+---
+
+## 4. Player Turn Actions
+
+During their turn, a player may choose one of the following actions:
+
+* **Hit**: Receive one additional card
+* **Stand**: End their turn
+* **Double Down**: Double the bet and receive exactly one additional card, then stand
+* **Split**: If the first two cards are the same rank, split them into two separate hands
+
+---
+
+## 5. Doubling Down Rules
+
+* Doubling down is allowed only on the player’s initial two-card hand
+* The player receives exactly **one additional card**
+* The player automatically stands after receiving the card
+* Bet value is logically doubled (no real-money or chip system required)
+
+---
+
+## 6. Splitting Rules
+
+* A split is allowed only when the player’s first two cards are of the same rank
+* When splitting:
+
+  * The hand is divided into two separate hands
+  * Each new hand receives one additional card
+* Each split hand is played independently
+* A player may split **only once** (maximum of two hands)
+* Special rules for Aces:
+
+  * If Aces are split, each hand receives only one additional card
+  * No further hits are allowed on split Ace hands
+
+---
+
+## 7. Turn Order with Split Hands
+
+* If a player splits, they must complete their first hand before playing the second hand
+* Other players wait until all split hands are finished before the turn moves on
+
+---
+
+## 8. Blackjack Rules
+
+* A Blackjack is defined as a hand totaling 21 using exactly two cards
+* Blackjacks cannot occur on split hands
+* Player Blackjack:
+
+  * The player’s turn ends immediately
+* Dealer Blackjack:
+
+  * The dealer reveals the hidden card immediately
+  * All non-Blackjack player hands lose
+
+---
+
+## 9. Dealer Rules
+
+* The dealer reveals the hidden card after all players have completed their turns
+* Dealer must:
+
+  * Hit until the hand total is **17 or higher**
+  * Stand on 17 or higher
+* The dealer does not split or double down
+
+---
+
+## 10. Win and Loss Conditions (Per Hand)
+
+Each player hand is evaluated individually against the dealer:
+
+* Player hand busts (over 21): Loss
+* Dealer busts and player hand is 21 or less: Win
+* Player hand total greater than dealer total: Win
+* Player hand total less than dealer total: Loss
+* Pla
