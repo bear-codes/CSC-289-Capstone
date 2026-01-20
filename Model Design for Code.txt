@@ -1,0 +1,159 @@
+# Blackjack Data Model
+
+## 1. Overview
+
+This document defines the classes, data structures, and relationships needed to implement the Blackjack game. It maps the game rules, player actions, and flow into a clear model for coding.
+
+---
+
+## 2. Core Classes
+
+### 2.1 Game
+
+**Responsibilities:**
+
+* Track all players and dealer
+* Manage deck and current turn
+* Control game flow and evaluate hands
+
+**Attributes:**
+
+* `deck: Deck`
+* `players: List[Player]`
+* `dealer: Dealer`
+* `currentPlayerIndex: int`
+* `currentHandIndex: int`
+* `roundActive: bool`
+
+**Methods:**
+
+* `startGame()`
+* `dealInitialCards()`
+* `nextPlayer()`
+* `evaluateHands()`
+* `endRound()`
+
+---
+
+### 2.2 Player
+
+**Responsibilities:**
+
+* Manage one or more hands
+* Execute actions on hands (Hit, Stand, Double Down, Split)
+
+**Attributes:**
+
+* `name: str`
+* `hands: List[Hand]`
+* `playerID: str`
+
+**Methods:**
+
+* `hit(handIndex)`
+* `stand(handIndex)`
+* `doubleDown(handIndex)`
+* `split(handIndex)`
+
+---
+
+### 2.3 Hand
+
+**Responsibilities:**
+
+* Track cards and calculate hand value
+* Track hand-specific flags
+
+**Attributes:**
+
+* `cards: List[Card]`
+* `isActive: bool`
+* `isCompleted: bool`
+* `isBusted: bool`
+* `isDoubled: bool`
+* `isSplitHand: bool`
+
+**Methods:**
+
+* `addCard(card: Card)`
+* `calculateValue() -> int`
+* `checkBlackjack() -> bool`
+* `checkBust() -> bool`
+
+---
+
+### 2.4 Card
+
+**Responsibilities:**
+
+* Represent a playing card
+
+**Attributes:**
+
+* `rank: str` (2-10, J, Q, K, A)
+* `suit: str` (Hearts, Diamonds, Clubs, Spades)
+
+**Methods:**
+
+* `getValue() -> int`
+
+---
+
+### 2.5 Deck
+
+**Responsibilities:**
+
+* Contain and manage 52-card deck
+* Shuffle and deal cards
+
+**Attributes:**
+
+* `cards: List[Card]`
+
+**Methods:**
+
+* `shuffle()`
+* `draw() -> Card`
+
+---
+
+### 2.6 Dealer (inherits Player)
+
+**Responsibilities:**
+
+* Play according to dealer rules (hit until 17 or higher, stand on 17+)
+
+**Methods:**
+
+* `playTurn()`
+* `revealHiddenCard()`
+
+---
+
+## 3. Relationships
+
+* **Game** has one **Deck**, multiple **Players**, and one **Dealer**
+* **Player** has one or more **Hands**
+* **Hand** has multiple **Cards**
+* **Dealer** is a specialized **Player** with automated decision rules
+
+---
+
+## 4. Flags & State Management
+
+* `isActive`, `isCompleted`, `isBusted`, `isDoubled`, `isSplitHand` tracked per Hand
+* `currentPlayerIndex`, `currentHandIndex` tracked by Game
+* `roundActive` indicates if a round is ongoing
+
+---
+
+## 5. Method Mapping (Example)
+
+| Class  | Methods                                                                    |
+| ------ | -------------------------------------------------------------------------- |
+| Game   | startGame(), dealInitialCards(), nextPlayer(), evaluateHands(), endRound() |
+| Player | hit(), stand(), doubleDown(), split()                                      |
+| Hand   | addCard(), calculateValue(), checkBlackjack(), checkBust()                 |
+| Deck   | shuffle(), draw()                                                          |
+| Dealer | playTurn(), revealHiddenCard()                                             |
+| Card   | getValue()                                                                 |
