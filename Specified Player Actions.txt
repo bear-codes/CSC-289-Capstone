@@ -1,0 +1,162 @@
+Specified Player Actions
+
+
+
+## 1. Overview
+
+Player actions define the choices a player may make during their turn in a game of Blackjack. Actions are governed by the current state of the game, the player’s hand, and specific rule constraints.
+
+Each action results in a state change that affects gameplay flow.
+
+---
+
+## 2. Hit
+
+**Description:**
+
+* The player requests an additional card from the deck.
+
+**Availability:**
+
+* Allowed when the hand value is less than 21
+* Allowed on any non-completed hand (including split hands, except split Aces)
+
+**Effect:**
+
+* One card is added to the current hand
+* Hand value is recalculated
+
+**End Conditions:**
+
+* Player may continue to Hit if hand value remains under 21
+* Hand ends immediately if the hand value exceeds 21 (bust)
+
+---
+
+## 3. Stand
+
+**Description:**
+
+* The player chooses to take no more cards and end the current hand
+
+**Availability:**
+
+* Allowed at any time during the player’s turn
+
+**Effect:**
+
+* The current hand is marked as complete
+
+**End Conditions:**
+
+* Control passes to the next hand (if split) or next player
+
+---
+
+## 4. Double Down
+
+**Description:**
+
+* The player doubles their bet in exchange for receiving exactly one additional card
+
+**Availability:**
+
+* Allowed only on the player’s initial two-card hand
+* Not allowed on split hands
+
+**Effect:**
+
+* One card is dealt to the hand
+* Bet multiplier for the hand is set to 2×
+
+**End Conditions:**
+
+* Player automatically stands after receiving the card
+
+---
+
+## 5. Split
+
+**Description:**
+
+* The player divides their initial two-card hand into two separate hands
+
+**Availability:**
+
+* Allowed only when the first two cards are of the same rank
+* Allowed only once per player per round
+
+**Effect:**
+
+* Original hand is replaced with two hands
+* Each new hand receives one additional card
+
+**End Conditions:**
+
+* Player must complete the first split hand before playing the second
+
+---
+
+## 6. Split Aces (Special Case)
+
+**Description:**
+
+* A special restriction applies when splitting Aces
+
+**Availability:**
+
+* Occurs only if the player splits two Aces
+
+**Effect:**
+
+* Each Ace hand receives exactly one additional card
+
+**Restrictions:**
+
+* No additional hits allowed
+* No doubling allowed
+
+**End Conditions:**
+
+* Both hands automatically stand after receiving one card
+
+---
+
+## 7. Invalid Actions
+
+The following actions are not permitted and should be blocked by the program:
+
+* Hitting after standing
+* Doubling down after receiving more than two cards
+* Splitting hands that are not the same rank
+* Performing any action after a hand has busted
+
+---
+
+## 8. Action Resolution Order
+
+When an action is selected:
+
+1. Validate action against current hand state
+2. Apply rule constraints
+3. Update hand and game state
+4. Check for end-of-hand conditions
+5. Pass control to the appropriate next hand or player
+
+---
+
+## 9. Action State Flags (Recommended)
+
+To manage actions cleanly, each hand should track:
+
+* `isActive`
+* `isCompleted`
+* `isBusted`
+* `isDoubled`
+* `isSplitHand`
+
+---
+
+## 10. Scope Notes
+
+* No surrender or ins

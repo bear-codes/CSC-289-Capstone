@@ -1,0 +1,43 @@
+# Blackjack Game Flow Diagram
+
+## 1. Overview
+
+This document describes the overall flow of a Blackjack round from lobby creation through round completion. It defines the order of operations, turn transitions, and decision points used by the program.
+
+---
+
+## 2. Game Flow Steps
+
+1. **Lobby Creation & Join**
+
+   * Players join a lobby (1–6 players) before the game starts.
+
+2. **Game Start & Deck Shuffle**
+
+   * Game is initiated, deck is created and shuffled, player and dealer states are reset.
+
+3. **Initial Deal**
+
+   * Each player receives two face-up cards, dealer receives one face-up and one face-down card.
+
+4. **Player Turns**
+
+   * Players act sequentially in join order.
+   * Actions include Hit, Stand, Double Down, and Split.
+
+5. **Split Hand Handling**
+
+   * If a player splits, each hand is played independently before moving to the next player.
+
+6. **Dealer Turn**
+
+   * Dealer reveals hidden card and hits until hand total is 17 or higher.
+
+7. **Hand Evaluation**
+
+   * Each player hand is compared to the dealer to determine Win, Loss, or Push.
+
+8. **Results & Round End**
+
+   * Display outcomes for all hands.
+   * Players may start a new round or leave the lobby.
