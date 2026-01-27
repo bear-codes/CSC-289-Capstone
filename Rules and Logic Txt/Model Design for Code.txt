@@ -1,0 +1,135 @@
+# Blackjack Data Model (Single Player)
+
+## 1. Overview
+
+Defines classes and data structures for a single-player, local Blackjack game with automated dealer and post-game review.
+
+---
+
+## 2. Core Classes
+
+### 2.1 Game
+
+**Responsibilities:**
+
+* Track the single player and dealer
+* Manage deck and current hand
+* Control game flow and evaluate hands
+* Provide post-game review
+
+**Attributes:**
+
+* `deck: Deck`
+* `player: Player`
+* `dealer: Dealer`
+* `currentHandIndex: int`
+* `roundActive: bool`
+
+**Methods:**
+
+* `startGame()`
+* `dealInitialCards()`
+* `playerTurn()`
+* `dealerTurn()`
+* `evaluateHands()`
+* `postGameReview()`
+* `endRound()`
+
+---
+
+### 2.2 Player
+
+**Responsibilities:**
+
+* Manage one or more hands
+* Execute actions on hands (Hit, Stand, Double Down, Split)
+
+**Attributes:**
+
+* `name: str`
+* `hands: List[Hand]`
+
+**Methods:**
+
+* `hit(handIndex)`
+* `stand(handIndex)`
+* `doubleDown(handIndex)`
+* `split(handIndex)`
+
+---
+
+### 2.3 Hand
+
+**Responsibilities:**
+
+* Track cards and calculate hand value
+* Track hand-specific flags
+
+**Attributes:**
+
+* `cards: List[Card]`
+* `isActive: bool`
+* `isCompleted: bool`
+* `isBusted: bool`
+* `isDoubled: bool`
+* `isSplitHand: bool`
+
+**Methods:**
+
+* `addCard(card: Card)`
+* `calculateValue() -> int`
+* `checkBlackjack() -> bool`
+* `checkBust() -> bool`
+
+---
+
+### 2.4 Card
+
+**Attributes:**
+
+* `rank: str` (2-10, J, Q, K, A)
+* `suit: str` (Hearts, Diamonds, Clubs, Spades)
+
+**Methods:**
+
+* `getValue() -> int`
+
+---
+
+### 2.5 Deck
+
+**Attributes:**
+
+* `cards: List[Card]`
+
+**Methods:**
+
+* `shuffle()`
+* `draw() -> Card`
+
+---
+
+### 2.6 Dealer (inherits Player)
+
+**Responsibilities:**
+
+* Play according to dealer rules (hit until 17+, stand on 17+)
+
+**Methods:**
+
+* `playTurn()`
+* `revealHiddenCard()`
+
+---
+
+## 3. Flags & State Management
+
+* Track `isActive`, `isCompleted`, `isBusted`, `isDoubled`, `isSplitHand` per Hand
+* Track `currentHandIndex` and `roundActive` in Game
+
+---
+
+## 4. Post-Game Review
+
+* Store player decisions and optimal suggestions
+* Evaluate each hand for learning purposes
